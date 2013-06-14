@@ -8,25 +8,34 @@ Configuration
 
 Change parameters values
 
-``` txt
+``` sh
 DAEMON_PID="{your node server pid file}"
 DEAMON_LOG="{your node server log file}"
 DEAMON_OPT="/{your app.js file} > $DEAMON_LOG"
 DAEMON_USER="{your user id}:{your group id}"
 ```
 
-Installation
+Install
 -----
 
 ``` sh
+$ sudo cp node /etc/init.d/
+$ sudo chmod +x /etc/init.d/node
+$ sudo update-rc.d node defaults
+```
 
+Uninstal
+-----
+
+``` sh
+$ sudo update-rc.d -f node remove
 ```
 
 Usage
 -----
 
 ``` sh
-$ /etc/init.d/node start
-$ /etc/init.d/node stop
-$ /etc/init.d/node restart
+$ sudo /etc/init.d/node start
+$ sudo /etc/init.d/node stop
+$ sudo /etc/init.d/node restart
 ```
