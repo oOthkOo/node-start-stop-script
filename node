@@ -1,0 +1,67 @@
+#! /bin/sh -e
+
+### BEGIN INIT INFO
+# Provides:          node
+# Required-Start:    $remote_fs $named $syslog
+# Required-Stop:     $remote_fs $named $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: UBUNTU initscript for NodeJS servers/apps
+# Description:       NodeJS HTTP Server init script for Ubuntu,
+#                    please place this file in /etc/init.d.
+### END INIT INFO
+
+DEAMON_NAME="node"
+DEAMON_DESC="NodeJS HTTP Server"
+DAEMON_BIN="/usr/bin/$DEAMON_NAME"
+DAEMON_PID="/var/run/node.pid"
+DEAMON_LOG="/var/log/node.log"
+DEAMON_OPT="/home/tierry/workspace/nodejs/app.js > $DEAMON_LOG"
+DAEMON_USER="tierry:tierry"
+PATH="/sbin:/bin:/usr/sbin:/usr/bin"
+
+. /lib/lsb/init-functions
+
+test -x $DAEMON_BIN || { log_daemon_msg "[Error]: $DEAMON_NAME not found."; exit 0; }
+
+d_start () {
+        log_daemon_msg "Starting $DEAMON_DESC"
+  start-stop-daemon --background --name $DEAMON_NAME --pidfile $DAEMON_PID --quiet --start --chuid $DAEMON_USER \
+	--exec $DAEMON_BIN -- $DEAMON_OPT
+        log_end_msg $?
+}
+
+d_stop () {
+        log_daemon_msg "Stopping $DEAMON_DESC"
+	start-stop-daemon --name $DEAMON_NAME --pidfile $DAEMON_PID --stop --oknodo --quiet --retry 5
+	log_end_msg $?
+	rm -f $DAEMON_PID
+}
+
+case "$1" in
+
+        start|stop)
+                d_${1}
+                ;;
+
+        restart|reload|force-reload)
+                        d_stop
+                        d_start
+                ;;
+
+        force-stop)
+               d_stop
+                killall -q $DEAMON_NAME || true
+                sleep 2
+                killall -q -9 $DEAMON_NAME || true		
+                ;;
+
+        status)
+                status_of_proc "$DEAMON_NAME" "$DAEMON_BIN" "system-wide $DEAMON_NAME" && exit 0 || exit $?
+                ;;
+        *)
+                echo "Usage: /etc/init.d/$DEAMON_NAME {start|stop|force-stop|restart|reload|force-reload|status}"
+                exit 1
+                ;;
+esac
+exit 0
