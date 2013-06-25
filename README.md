@@ -11,12 +11,13 @@ Features
  
 Configuration
 -----
-Change parameters values this script
+Change this parameter value in node-server script :
 ``` sh
-DAEMON_PID="{your node server pid file}"
-DEAMON_LOG="{your node server log file}"
-DEAMON_OPT="{your app.js file} > $DEAMON_LOG"
-DAEMON_USER="{your user id}:{your group id}"
+DAEMON_USER="{your-user-uid:your-user-gid}"
+```
+Change theses parameters value in node-exec script :
+``` sh
+DAEMON_USER="{your-user-uid:your-user-gid}"
 ```
 Install
 -----
