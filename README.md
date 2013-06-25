@@ -12,12 +12,14 @@ Features
 Configuration
 -----
 Change this parameter value in node-server script :
+(ex: user:user)
 ``` sh
 DAEMON_USER="{your-user-uid:your-user-gid}"
 ```
 Change theses parameters value in node-exec script :
+(ex: /var/lib/node)
 ``` sh
-DAEMON_USER="{your-user-uid:your-user-gid}"
+DAEMON_APP_DIR="{your-app-directory}"
 ```
 Install
 -----
