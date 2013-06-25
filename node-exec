@@ -1,0 +1,9 @@
+#!/bin/sh
+
+DEAMON_NAME="node"
+DAEMON_BIN="/usr/bin/$DEAMON_NAME"
+DAEMON_APP_DIR="{your-app-directory}"
+DAEMON_APP_FILE="$DAEMON_APP_DIR/server.js"
+DAEMON_LOG_FILE="$DAEMON_APP_DIR/server.log"
+
+exec $DAEMON_BIN $DAEMON_APP_FILE >> $DAEMON_LOG_FILE 2>&1
