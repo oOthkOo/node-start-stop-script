@@ -1,5 +1,7 @@
 Ubuntu NodeJS daemon script
 ========================
+[![SlugBay Badge](https://www.slugbay.com/pictures/badges/slugbay-simple.svg)](https://www.slugbay.com)
+
 A Ubuntu script to daemonize NodeJS server in a easy way.
 Features
 -----
